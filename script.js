@@ -23,10 +23,11 @@ const chat = document.getElementById('chat');
 const input = document.getElementById('prompt');
 const btn = document.getElementById('send-btn');
 
-function addMessage(text, type) {
+// Измененная функция: теперь принимает HTML
+function addMessage(content, type) {
     const m = document.createElement('div');
     m.className = `msg ${type}`;
-    m.textContent = text;
+    m.innerHTML = content; // Используем innerHTML для ссылок
     chat.appendChild(m);
     chat.scrollTop = chat.scrollHeight;
 }
@@ -34,13 +35,23 @@ function addMessage(text, type) {
 function send() {
     const text = input.value.trim();
     if(!text) return;
-    addMessage(text, 'user');
+    
+    // Для пользователя оставляем обычный текст (безопасность)
+    const tempDiv = document.createElement('div');
+    tempDiv.textContent = text;
+    addMessage(tempDiv.innerHTML, 'user');
+    
     input.value = '';
 
     setTimeout(() => {
         let reply = "";
         if (text.length > 150) {
-            reply = "Слушай, я тебе не психолог, чтобы такие простыни читать. Если тебе так нужны деньги или работа, то иди по ссылке: freelancenoscam.vadimka.site. Там таким нытикам самое место.";
+            // Кликабельная ссылка и кнопка
+            reply = `Слушай, я тебе не психолог, чтобы такие простыни читать. Если тебе так нужны деньги или работа, то иди сюда: 
+                     <br><br>
+                     <a href="https://freelancenoscam.vadimka.site" target="_blank" style="color: #10a37f; font-weight: bold;">freelancenoscam.vadimka.site</a>
+                     <br><br>
+                     <button onclick="window.open('https://freelancenoscam.vadimka.site', '_blank')" style="background: #10a37f; color: white; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer; width: 100%;">Найти работу для нытиков</button>`;
         } else {
             const low = text.toLowerCase();
             let key = Object.keys(db.keywords).find(k => low.includes(k));
@@ -56,6 +67,7 @@ function send() {
     }, 600);
 }
 
+// Функцию openPaywall оставляем без изменений
 function openPaywall() {
     const overlay = document.createElement('div');
     overlay.style = "position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); display:flex; justify-content:center; align-items:center; z-index:9999; color:black; font-family:sans-serif; padding: 20px;";
