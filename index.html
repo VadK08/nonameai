@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoNameAi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app-container">
+    <header>NoNameAi v1.0.4-stable</header>
+    <div id="chat">
+        <div class="msg ai">Система инициализирована. Готов выслушать ваши глупости.</div>
+    </div>
+    <div id="input-container">
+        <!-- Панель фейковых кнопок -->
+        <div class="ai-tools">
+            <button class="tool-btn" onclick="openPaywall()">📁 Файлы</button>
+            <button class="tool-btn" onclick="openPaywall()">🎙️ Озвучка</button>
+            <button class="tool-btn" onclick="openPaywall()">📜 История</button>
+        </div>
+        <div class="input-wrapper">
+            <input type="text" id="prompt" placeholder="Спросить NoNameAi...">
+            <button id="send-btn">↑</button>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
